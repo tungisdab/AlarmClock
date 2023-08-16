@@ -2,7 +2,6 @@ import 'package:alarm_clock/page/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 void main(){
   runApp(MyApp());
 }
