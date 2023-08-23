@@ -3,6 +3,7 @@ import 'package:alarm_clock/value/time_value.dart';
 import 'package:alarm_clock/page/notification.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -19,6 +20,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     LocalNotification.initilize(flutterLocalNotificationsPlugin);
+    tz.initializeTimeZones();
   }
   bool check = true;
   final MaterialStateProperty<Icon?> thumbIcon =
@@ -60,19 +62,18 @@ class _HomeState extends State<Home> {
               ElevatedButton(
                 onPressed: (){
                   LocalNotification.showBigTextNotification(
-                    title: "khanh11111", 
-                    body: "hehe1111",
-                    flutterLocalNotificationsPlugin: flutterLocalNotificationsPlugin 
+                    title: "Alarm Clock",
+                    body: "Báo thức đã được đặt lúc ${TimeValue.timeAlarm}",
+                    fln: flutterLocalNotificationsPlugin,
                   );
                 },
-            child: Text(
-              "tung",
-              style: const TextStyle(
-                fontSize: 18,
+                child: Text(
+                  "tung",
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
               ),
-            ),
-          ),
-
               Text(
                 'Thời gian báo thức: ${TimeValue.timeAlarm}',
                 textAlign: TextAlign.center,
@@ -81,27 +82,6 @@ class _HomeState extends State<Home> {
           )
         )
       ),
-      // body: Center(
-      //   child: Container(
-      //     width: 180,
-      //     height: 50,
-      //     child: ElevatedButton(
-      //       onPressed: (){
-      //         LocalNotification.showBigTextNotification(
-      //           title: "khanh11111", 
-      //           body: "hehe1111",
-      //           flutterLocalNotificationsPlugin: flutterLocalNotificationsPlugin 
-      //         );
-      //       },
-      //       child: Text(
-      //         "tung",
-      //         style: const TextStyle(
-      //           fontSize: 18,
-      //         ),
-      //       ),
-      //     ),
-      //   ),
-      // ),
     );
   }
 }

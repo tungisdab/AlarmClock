@@ -1,25 +1,31 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+
 class LocalNotification{
   static Future initilize(FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async{
-    var androidInitilize = const AndroidInitializationSettings('mipmap/ic_launcher');
-    DarwinInitializationSettings initializationSettingsDarwin = const DarwinInitializationSettings();
-    var initilizationSettings = InitializationSettings(
-      android: androidInitilize,
-      iOS: initializationSettingsDarwin
+    var initializationSettingsAndroid =
+      AndroidInitializationSettings('mipmap/ic_launcher');
+    var initializationSettingsDarwin =
+        DarwinInitializationSettings();
+    var initializationSettings = InitializationSettings(
+        android: initializationSettingsAndroid,
+        iOS: initializationSettingsDarwin);
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings
     );
-    await flutterLocalNotificationsPlugin.initialize(initilizationSettings);
   }
+
   static Future showBigTextNotification({
-    var id =0,
+    var id = 0,
     required String title,
     required String body,
     var payload,
-    required FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin,
+    required FlutterLocalNotificationsPlugin fln,
   }) async{
-    AndroidNotificationDetails androidNotificationDetails = const AndroidNotificationDetails(
-      'you_can_name_it_whatever1',
-      'chanel_name',
+
+  AndroidNotificationDetails androidNotificationDetails = const AndroidNotificationDetails(
+      'channel_id', 
+      'channel_name',
       playSound: true,
       importance: Importance.max,
       priority: Priority.high,
@@ -27,10 +33,15 @@ class LocalNotification{
     const DarwinNotificationDetails darwinNotificationDetails = DarwinNotificationDetails(
       presentSound: false,
     );
-    var not = NotificationDetails(
+    var noti = NotificationDetails(
       android: androidNotificationDetails,
       iOS: darwinNotificationDetails,
     );
-    await flutterLocalNotificationsPlugin.show(0, title, body, not);
+    await fln.show(
+      0, 
+      title,
+      body,
+      noti,
+    );
   }
 }
