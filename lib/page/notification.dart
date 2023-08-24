@@ -1,10 +1,11 @@
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 
 class LocalNotification{
   static Future initilize(FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async{
     var initializationSettingsAndroid =
-      AndroidInitializationSettings('mipmap/ic_launcher');
+      AndroidInitializationSettings('logokhanh');
     var initializationSettingsDarwin =
         DarwinInitializationSettings();
     var initializationSettings = InitializationSettings(
@@ -23,10 +24,11 @@ class LocalNotification{
     required FlutterLocalNotificationsPlugin fln,
   }) async{
 
-  AndroidNotificationDetails androidNotificationDetails = const AndroidNotificationDetails(
+  AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
       'channel_id', 
       'channel_name',
-      playSound: true,
+      icon: 'logokhanh',
+      sound: RawResourceAndroidNotificationSound('alarm'),
       importance: Importance.max,
       priority: Priority.high,
     );
