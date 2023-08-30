@@ -28,7 +28,7 @@ class LocalNotification{
       'channel_id', 
       'channel_name',
       icon: 'logokhanh',
-      sound: RawResourceAndroidNotificationSound('alarm'),
+      sound: RawResourceAndroidNotificationSound('alarmz'),
       importance: Importance.max,
       priority: Priority.high,
     );
