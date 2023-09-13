@@ -18,9 +18,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return MaterialApp(
-      home: Home(),
+      home: DefaultTabController(
+        length: 4,
+        child: const Home(),
+      ),
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),

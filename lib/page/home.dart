@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:alarm_clock/page/time_schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:alarm_clock/value/time_value.dart';
@@ -18,13 +20,21 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  bool check = true;
+  String textSearch = "Steal someone's heart";
+  DateTime _time = DateTime.now();
   @override
   void initState() {
     super.initState();
     LocalNotification.initilize(flutterLocalNotificationsPlugin);
     tz.initializeTimeZones();
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        _time = DateTime.now();
+      });
+    });
   }
-  bool check = true;
+  final TextEditingController _searchText = TextEditingController();
   final MaterialStateProperty<Icon?> thumbIcon =
       MaterialStateProperty.resolveWith<Icon?>(
     (Set<MaterialState> states) {
@@ -38,82 +48,234 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Alarm Clock'),
-        
-      ),
-      body: Container(
-        child: Center(
-          child: Column(
-            children: [
-              Text(
-                'Thời gian: ${TimeValue.time}',
-                textAlign: TextAlign.center,
-              ),
-              Switch(
-                thumbIcon: thumbIcon,
-                value: check,
-                onChanged: (bool value) {
-                  setState(() {
-                    check = value;
-                    TimeValue.time = DateFormat('HH:mm:ss').format(DateTime.now());
-                    TimeValue.timeAlarm = DateFormat('HH:mm:ss').format(DateTime.now().add(Duration(minutes: 15)));
-                  });
-                }
-              ),
-              ElevatedButton(
-                onPressed: (){
-                  LocalNotification.showBigTextNotification(
-                    title: "Alarm Clock",
-                    body: "Báo thức đã được đặt lúc ${TimeValue.timeAlarm}",
-                    fln: flutterLocalNotificationsPlugin,
-                  );
-                },
-                child: Text(
-                  "Khánh hiện lên và nói",
-                  style: const TextStyle(
-                    fontSize: 18,
-                  ),
+      appBar: _appBar(),
+      body: Center(
+        child: Column(
+          children: [
+            Text(
+              'Bây giờ là:',
+              style: TextStyle(fontSize: 24),
+            ),
+            Text(
+              '${_time.hour}:${_time.minute}:${_time.second}',
+              style: TextStyle(fontSize: 24),
+            ),
+            Switch(
+              value: check,
+              onChanged: (bool value) {
+                setState(() {
+                  check = value;
+                  TimeValue.time = DateFormat('HH:mm:ss').format(DateTime.now());
+                  TimeValue.timeAlarm = DateFormat('HH:mm:ss').format(DateTime.now().add(Duration(minutes: 15)));
+                });
+              }
+            ),
+            ElevatedButton(
+              onPressed: (){
+                LocalNotification.showBigTextNotification(
+                  title: "Khánh hiện lên và nói",
+                  body: "Dậy thôi con trai",
+                  fln: flutterLocalNotificationsPlugin,
+                );
+              },
+              child: Text(
+                "   Get up   ",
+                style: const TextStyle(
+                  fontSize: 18,
                 ),
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  await TimeSchedule.showFullScreenNotification(
-                    context: context,
-                    fln: flutterLocalNotificationsPlugin,
-                    timeAlarm: 10,
-                  );
-                },
-                child: Text(
-                  "10 phút",
-                  style: const TextStyle(
-                    fontSize: 18,
-                  ),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await TimeSchedule.showFullScreenNotification(
+                  context: context,
+                  fln: flutterLocalNotificationsPlugin,
+                  timeAlarm: 10,
+                );
+              },
+              child: Text(
+                "1/6 hours",
+                style: const TextStyle(
+                  fontSize: 18,
                 ),
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  await TimeSchedule.showFullScreenNotification(
-                    context: context,
-                    fln: flutterLocalNotificationsPlugin,
-                    timeAlarm: 15,
-                  );
-                },
-                child: Text(
-                  "15 phút",
-                  style: const TextStyle(
-                    fontSize: 18,
-                  ),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await TimeSchedule.showFullScreenNotification(
+                  context: context,
+                  fln: flutterLocalNotificationsPlugin,
+                  timeAlarm: 15,
+                );
+              },
+              child: Text(
+                "1/4 hours",
+                style: const TextStyle(
+                  fontSize: 18,
                 ),
               ),
-              Text(
-                'Thời gian đặt báo thức: ${TimeValue.time}',
-                textAlign: TextAlign.center,
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await TimeSchedule.showFullScreenNotification(
+                  context: context,
+                  fln: flutterLocalNotificationsPlugin,
+                  timeAlarm: 20,
+                );
+              },
+              child: Text(
+                "1/3 hours",
+                style: const TextStyle(
+                  fontSize: 18,
+                ),
               ),
-            ],
-          )
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await TimeSchedule.showFullScreenNotification(
+                  context: context,
+                  fln: flutterLocalNotificationsPlugin,
+                  timeAlarm: 30,
+                );
+              },
+              child: Text(
+                "1/2 hours",
+                style: const TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            ),
+          ],
         )
       ),
+    );
+  }
+  PreferredSize _appBar() {
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(150),
+      child: Container(
+        margin: const EdgeInsets.only(top: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        decoration: _boxDecoration(),
+        child: SafeArea(
+          child: Column(
+            children: [
+              _topBar(),
+              const SizedBox(height: 5),
+              _searchBox(),
+              _tabBar(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  BoxDecoration _boxDecoration() {
+    return BoxDecoration(
+      borderRadius: const BorderRadius.vertical(
+        bottom: Radius.circular(20),
+      ),
+      gradient: LinearGradient(
+        colors: [Colors.red.shade200, Colors.red.shade300],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      ),
+    );
+  }
+
+  Widget _topBar() {
+    return Row(
+      children: [
+        Image.asset(
+          'assets/icon/icon1.png',
+          scale: 50,
+        ),
+        const Expanded(
+          child: Text(
+            'My Heartbeats',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.black, fontSize: 16),
+          ),
+        ),
+        const CircleAvatar(
+          radius: 15,
+          backgroundImage: AssetImage('assets/icon/icon.png'),
+        )
+      ],
+    );
+  }
+
+  Widget _searchBox() {
+    return SizedBox(
+      height: 35,
+      child: TextFormField(
+        textAlign: TextAlign.start,
+        controller: _searchText,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          prefixIcon: const Icon(Icons.search),
+          suffixIcon: InkWell(
+            child: const Icon(Icons.close),
+            onTap: () {
+              _searchText.clear();
+            },
+          ),
+          hintText: textSearch,
+          contentPadding: const EdgeInsets.all(0),
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(17)),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _tabBar() {
+    return TabBar(
+      labelPadding: const EdgeInsets.all(0),
+      labelColor: Colors.lime.shade300,
+      indicatorColor: Colors.black,
+      unselectedLabelColor: Colors.red.shade700,
+      tabs: const [
+        Tab(
+          iconMargin: EdgeInsets.all(0),
+          icon: Icon(Icons.alarm),
+          text: 'Alarm',
+        ),
+        Tab(
+          iconMargin: EdgeInsets.all(0),
+          icon: Icon(Icons.task),
+          text: 'Todo',
+        ),
+        Tab(
+          iconMargin: EdgeInsets.all(0),
+          icon: Icon(Icons.my_library_music_outlined),
+          text: 'Music',
+        ),
+        Tab(
+          iconMargin: EdgeInsets.all(0),
+          icon: Icon(Icons.sunny_snowing),
+          text: 'Weather',
+        ),
+      ],
+    );
+  }
+
+  Widget _tabBarViewItem(IconData icon, String name) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          icon,
+          size: 100,
+        ),
+        Text(
+          name,
+          style: const TextStyle(fontSize: 40),
+        ),
+      ],
     );
   }
 }
