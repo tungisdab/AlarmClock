@@ -33,6 +33,14 @@ class HourlyCast{
   final List<double> temperature;
   HourlyCast({required this.time, required this.temperature});
   factory HourlyCast.fromJson(Map<String, dynamic> data){
+    // List<String> timeFormat = data['time'];
+    // for(int i = 0; i < timeFormat.length; i++){
+    //   // timeFormat[i] = timeFormat[i].substring(0, 9);
+    //   String date = timeFormat[i].substring(8, 10) + "/" + timeFormat[i].substring(5, 7) + "/" + timeFormat[i].substring(0, 4);
+    //   String timeHour = timeFormat[i].substring(11, 13) + ":" + timeFormat[i].substring(14, 16);
+    //   timeFormat[i] = date + " " + timeHour;
+    // }
+    // final time = timeFormat;
     final time = data['time'] as List<String>;
     final temperature = data['temperature'] as List<double>;
     return HourlyCast(time: time, temperature: temperature);

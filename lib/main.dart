@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: DefaultTabController(
         length: 4,
-        child: const Home(),
+        child: Home(),
       ),
       theme: ThemeData(
         primarySwatch: Colors.red,

@@ -17,6 +17,14 @@ class _WeatherState extends State<Weather> {
   List<Widget>? Hourly_cast_time;
   List<dynamic>? hourly_temp;
   List<dynamic>? hourly_date;
+  String rowTime = "";
+  formatHourlyCastTime(dynamic e){
+    rowTime = e.toString();
+    String date = rowTime.substring(8, 10) + "/" + rowTime.substring(5, 7) + "/" + rowTime.substring(0, 4);
+    String timeHour = rowTime.substring(11, 13) + ":" + rowTime.substring(14, 16);
+    String result = date + " " + timeHour;
+    return result;
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,7 +34,7 @@ class _WeatherState extends State<Weather> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Current Weather"),
+              Text("Hà Nội"),
               SizedBox(height: 20,),
               Icon(Icons.sunny, color: Colors.amber,size: 50,),
               SizedBox(height: 20,),
@@ -46,9 +54,15 @@ class _WeatherState extends State<Weather> {
                     Padding(padding: EdgeInsets.all(8.0), child: Text("$e",style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),),)
                   ).toList();
                   Hourly_cast_time = hourly_date?.map((e)=>
-                    Padding(padding: EdgeInsets.all(8.0), child: Text("$e",style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),),)
+                    Padding(
+                      padding: EdgeInsets.all(8.0), 
+                      child: Text(
+                        formatHourlyCastTime(e),
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),
+                      ),
+                    )
                   ).toList();
-
+                  
                   setState(() {
                     
                   });
@@ -57,8 +71,13 @@ class _WeatherState extends State<Weather> {
               ),
               Container(
                 margin: EdgeInsets.all(20),
-                color: Color.fromARGB(255, 227, 247, 222),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  color: Color.fromARGB(255, 251, 251, 100),
+                ),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Column(
                       children: Hourly_cast_time == null ? [Text("Empty")]:Hourly_cast_time!,
