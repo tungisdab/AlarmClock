@@ -1,4 +1,5 @@
 import 'package:alarm_clock/page/alarm.dart';
+import 'package:alarm_clock/page/todo.dart';
 import 'package:alarm_clock/page/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:alarm_clock/page/notification.dart';
@@ -40,16 +41,15 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(),
-      body: Center(
-        child: TabBarView(
-          children: [
-            Alarm(),
-            _tabBarViewItem(Icons.task, 'Todo List'),
-            _tabBarViewItem(Icons.my_library_music_outlined, 'Music'),
-            // _tabBarViewItem(Icons.sunny_snowing, 'Weather'),
-            Weather()
-          ],
-        ),
+      body: TabBarView(
+        children: [
+          Alarm(),
+          // _tabBarViewItem(Icons.task, 'Todo List'),
+          Todo(),
+          _tabBarViewItem(Icons.my_library_music_outlined, 'Music'),
+          // _tabBarViewItem(Icons.sunny_snowing, 'Weather'),
+          Weather()
+        ],
       ),
     );
   }
@@ -80,7 +80,7 @@ class _HomeState extends State<Home> {
         top: Radius.circular(20),
       ),
       gradient: LinearGradient(
-        colors: [Colors.red.shade200, Colors.red.shade300],
+        colors: [Color.fromARGB(255, 237, 80, 59), Color.fromARGB(255, 226, 104, 104)],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -91,14 +91,14 @@ class _HomeState extends State<Home> {
     return Row(
       children: [
         Image.asset(
-          'assets/images/ma.jpg',
-          scale: 25,
+          'assets/images/ah4.png',
+          scale: 50,
         ),
         const Expanded(
           child: Text(
             'My Heartbeats',
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.black, fontSize: 16),
+            style: TextStyle(color: Color.fromARGB(255, 220, 231, 117), fontSize: 16),
           ),
         ),
         const CircleAvatar(
@@ -140,7 +140,7 @@ class _HomeState extends State<Home> {
       labelPadding: const EdgeInsets.all(0),
       labelColor: Colors.lime.shade300,
       indicatorColor: Colors.black,
-      unselectedLabelColor: Colors.red.shade700,
+      unselectedLabelColor: Colors.white,
       tabs: const [
         Tab(
           iconMargin: EdgeInsets.all(0),

@@ -1,5 +1,6 @@
 import 'package:alarm_clock/model/model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../client/client.dart';
 
@@ -50,15 +51,54 @@ class _WeatherState extends State<Weather> {
                   weatherModel = await WeatherClient().request();
                   hourly_temp = weatherModel?.hourly["temperature_2m"];
                   hourly_date = weatherModel?.hourly["time"];
-                  Hourly_cast = hourly_temp?.map((e)=>
-                    Padding(padding: EdgeInsets.all(8.0), child: Text("$e",style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),),)
-                  ).toList();
                   Hourly_cast_time = hourly_date?.map((e)=>
-                    Padding(
-                      padding: EdgeInsets.all(8.0), 
-                      child: Text(
-                        formatHourlyCastTime(e),
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25), 
+                          bottomLeft: Radius.circular(25)
+                        ),
+                        color: Color.fromARGB(255, 247, 80, 80),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: 30.0,
+                          left: 30,
+                          bottom: 30.0,
+                          right: 30.0,
+                        ), 
+                        child: Text(
+                          formatHourlyCastTime(e),
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),
+                        ),
+                      ),
+                    )
+                  ).toList();
+                  Hourly_cast = hourly_temp?.map((e)=>
+                    Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(25), 
+                          bottomRight: Radius.circular(25)
+                        ),
+                        color: Color.fromARGB(255, 247, 80, 80),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: 30.0,
+                          left: 30,
+                          bottom: 30.0,
+                          right: 30.0,
+                        ), 
+                        child: Text(
+                          "$e",
+                          style: TextStyle(
+                            fontSize: 20, 
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     )
                   ).toList();
@@ -73,14 +113,14 @@ class _WeatherState extends State<Weather> {
                 margin: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
-                  color: Color.fromARGB(255, 251, 251, 100),
+                  // color: Color.fromARGB(255, 251, 251, 100),
                 ),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Column(
                       children: Hourly_cast_time == null ? [Text("Empty")]:Hourly_cast_time!,
+                      
                     ),
                     Column(
                       children: Hourly_cast == null ? [Text("Empty")]:Hourly_cast!,
