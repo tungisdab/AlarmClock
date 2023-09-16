@@ -12,7 +12,9 @@ class Weather extends StatefulWidget {
   State<Weather> createState() => _WeatherState();
 }
 
-class _WeatherState extends State<Weather> {
+class _WeatherState extends State<Weather> with AutomaticKeepAliveClientMixin{
+  @override
+  bool get wantKeepAlive => true;
   WeatherModel ? weatherModel;
   List<Widget>? Hourly_cast;
   List<Widget>? Hourly_cast_time;

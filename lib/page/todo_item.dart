@@ -4,7 +4,9 @@ import '../model/todo.dart';
 
 class TodoItem extends StatefulWidget {
   final ToDo todo;
-  TodoItem({super.key, required this.todo});
+  final onToDoChanged;
+  final onDeleteItem;
+  TodoItem({super.key, required this.todo, required this.onToDoChanged, required this.onDeleteItem});
 
   @override
   State<TodoItem> createState() => _TodoItemState();
@@ -15,12 +17,16 @@ class _TodoItemState extends State<TodoItem> {
   @override
   Widget build(BuildContext context) {
     ToDo todo = widget.todo;
+    final onToDoChanged = widget.onToDoChanged;
+    final onDeleteItem = widget.onDeleteItem;
     return Stack(
       children: [
         Container(
           margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: ListTile(
-            onTap: (){},
+            onTap: (){
+              onToDoChanged(todo);
+            },
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
@@ -34,7 +40,7 @@ class _TodoItemState extends State<TodoItem> {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w400,
-                decoration: todo.isDone == false ? TextDecoration.lineThrough : null,
+                decoration: todo.isDone == true ? TextDecoration.lineThrough : null,
               ),
             ),
             contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -51,38 +57,14 @@ class _TodoItemState extends State<TodoItem> {
                 child: IconButton(
                   icon: Icon(Icons.delete),
                   iconSize: 18,
-                  onPressed: (){},
+                  onPressed: (){
+                    onDeleteItem(todo.id);
+                  },
                   color: Colors.white,
                 ),
               ),
             ),
           ),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Row(
-            children: [
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.only(
-                    bottom: 20,
-                    right: 20,
-                    left: 20,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.lime,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 10.0,
-                      spreadRadius: 0.0,
-                      offset: Offset(0.0, 0.0),
-                    ),]
-                  ),
-                ),
-              ),
-            ],
-          )
         ),
       ],
     );
