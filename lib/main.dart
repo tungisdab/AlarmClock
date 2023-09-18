@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return MaterialApp(
       home: DefaultTabController(
-        length: 4,
+        length: 6,
         child: Home(),
       ),
       theme: ThemeData(

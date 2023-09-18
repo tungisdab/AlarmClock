@@ -1,7 +1,6 @@
 import 'package:alarm_clock/page/todo_item.dart';
 import 'package:flutter/material.dart';
 import '../model/todo.dart';
-import '../page/todo_item.dart';
 
 class Todo extends StatefulWidget {
   Todo({super.key});
@@ -60,8 +59,9 @@ class _TodoState extends State<Todo> with AutomaticKeepAliveClientMixin{
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Stack(
+    super.build(context);
+    return SafeArea(
+      child: Column(
         // crossAxisAlignment: CrossAxisAlignment.start,
         // mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -101,7 +101,10 @@ class _TodoState extends State<Todo> with AutomaticKeepAliveClientMixin{
                       ),
                       child: TextField(
                         onChanged: (value){
-                          _runFilter(value);
+                          setState(() {
+                            _runFilter(value);
+                          });
+                          // _runFilter(value);
                         },
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.all(0),
@@ -142,63 +145,67 @@ class _TodoState extends State<Todo> with AutomaticKeepAliveClientMixin{
             ),
           ),
           Align(
-            alignment: Alignment.bottomCenter,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(
-                      bottom: 20,
-                      right: 20,
-                      left: 20,
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.lime,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 10.0,
-                        spreadRadius: 0.0,
-                        offset: Offset(0.0, 0.0),
-                      ),]
-                    ),
-                    child: TextField(
-                      controller: _todoController,
-                      decoration: InputDecoration(
-                        hintText: 'Add Todo',
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            child: Container(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          bottom: 20,
+                          right: 20,
+                          left: 20,
+                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                        decoration: BoxDecoration(
+                          color: Colors.lime,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 10.0,
+                            spreadRadius: 0.0,
+                            offset: Offset(0.0, 0.0),
+                          ),]
+                        ),
+                        child: TextField(
+                          controller: _todoController,
+                          decoration: InputDecoration(
+                            hintText: 'Add Todo',
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                          ),
+                        )
                       ),
-                    )
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(
-                    bottom: 20,
-                    right: 20,
-                  ),
-                  child: ElevatedButton(
-                    child: Text(
-                      '+',
-                      style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red
-                      )
                     ),
-                    onPressed: (){
-                      _addToDoItem(_todoController.text); 
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.yellow,
-                      minimumSize: Size(50, 50),
-                      elevation: 10
+                    Container(
+                      margin: EdgeInsets.only(
+                        bottom: 20,
+                        right: 20,
+                      ),
+                      child: ElevatedButton(
+                        child: Text(
+                          '+',
+                          style: TextStyle(
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red
+                          )
+                        ),
+                        onPressed: (){
+                          _addToDoItem(_todoController.text); 
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.yellow,
+                          minimumSize: Size(50, 50),
+                          elevation: 10
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ],
-            )
+                  ],
+                )
+              ),
+            ),
           ),
         ],
       ),

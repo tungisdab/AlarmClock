@@ -30,6 +30,7 @@ class _WeatherState extends State<Weather> with AutomaticKeepAliveClientMixin{
   }
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SafeArea(
       child: SingleChildScrollView(
         child: Center(  

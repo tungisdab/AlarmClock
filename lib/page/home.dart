@@ -48,7 +48,9 @@ class _HomeState extends State<Home> {
           Todo(),
           _tabBarViewItem(Icons.my_library_music_outlined, 'Music'),
           // _tabBarViewItem(Icons.sunny_snowing, 'Weather'),
-          Weather()
+          Weather(),
+          _tabBarViewItem(Icons.heart_broken, 'Lovedays'),
+          _tabBarViewItem(Icons.picture_as_pdf_outlined, 'PDF'),
         ],
       ),
     );
@@ -161,6 +163,16 @@ class _HomeState extends State<Home> {
           iconMargin: EdgeInsets.all(0),
           icon: Icon(Icons.sunny_snowing),
           text: 'Weather',
+        ),
+        Tab(
+          iconMargin: EdgeInsets.all(0),
+          icon: Icon(Icons.heart_broken),
+          text: 'Lovedays',
+        ),
+        Tab(
+          iconMargin: EdgeInsets.all(0),
+          icon: Icon(Icons.picture_as_pdf_outlined),
+          text: 'PDF',
         ),
       ],
     );
