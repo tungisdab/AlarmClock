@@ -96,7 +96,7 @@ class _TodoState extends State<Todo> with AutomaticKeepAliveClientMixin{
 
                       ),
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 206, 204, 238),
+                        color: Colors.grey.shade300,
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: TextField(
@@ -159,7 +159,7 @@ class _TodoState extends State<Todo> with AutomaticKeepAliveClientMixin{
                         ),
                         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                         decoration: BoxDecoration(
-                          color: Colors.lime,
+                          color: Colors.grey.shade300,
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [BoxShadow(
                             color: Colors.grey,
@@ -171,7 +171,7 @@ class _TodoState extends State<Todo> with AutomaticKeepAliveClientMixin{
                         child: TextField(
                           controller: _todoController,
                           decoration: InputDecoration(
-                            hintText: 'Add Todo',
+                            hintText: 'Write a love note',
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                           ),
@@ -189,16 +189,19 @@ class _TodoState extends State<Todo> with AutomaticKeepAliveClientMixin{
                           style: TextStyle(
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
-                            color: Colors.red
+                            color: Colors.white
                           )
                         ),
                         onPressed: (){
                           _addToDoItem(_todoController.text); 
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.yellow,
+                          backgroundColor: Colors.red,
                           minimumSize: Size(50, 50),
-                          elevation: 10
+                          elevation: 20,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
                       ),
                     ),

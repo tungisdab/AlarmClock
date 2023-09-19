@@ -1,4 +1,5 @@
 import 'package:alarm_clock/page/alarm.dart';
+import 'package:alarm_clock/page/lovedays.dart';
 import 'package:alarm_clock/page/todo.dart';
 import 'package:alarm_clock/page/weather.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,8 @@ class _HomeState extends State<Home> {
           _tabBarViewItem(Icons.my_library_music_outlined, 'Music'),
           // _tabBarViewItem(Icons.sunny_snowing, 'Weather'),
           Weather(),
-          _tabBarViewItem(Icons.heart_broken, 'Lovedays'),
+          // _tabBarViewItem(Icons.heart_broken, 'Lovedays'),
+          Lovedays(),
           _tabBarViewItem(Icons.picture_as_pdf_outlined, 'PDF'),
         ],
       ),
