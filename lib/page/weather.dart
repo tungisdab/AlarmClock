@@ -1,7 +1,7 @@
 import 'package:alarm_clock/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../client/client.dart';
 
 
@@ -21,6 +21,8 @@ class _WeatherState extends State<Weather> with AutomaticKeepAliveClientMixin{
   List<dynamic>? hourly_temp;
   List<dynamic>? hourly_date;
   String rowTime = "";
+  int currentPageIndex = 0;
+
   formatHourlyCastTime(dynamic e){
     rowTime = e.toString();
     String date = rowTime.substring(8, 10) + "/" + rowTime.substring(5, 7) + "/" + rowTime.substring(0, 4);
@@ -31,6 +33,42 @@ class _WeatherState extends State<Weather> with AutomaticKeepAliveClientMixin{
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    return Scaffold(
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        indicatorColor: Colors.red.shade200,
+        selectedIndex: currentPageIndex,
+        destinations: const <Widget>[
+          NavigationDestination(
+            selectedIcon: Icon(FontAwesomeIcons.cloudSun),
+            icon: Icon(FontAwesomeIcons.sun),
+            label: 'Temperature',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(FontAwesomeIcons.temperatureFull),
+            icon: Icon(FontAwesomeIcons.temperatureEmpty),
+            label: 'Humidity',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(FontAwesomeIcons.wind),
+            icon: Icon(FontAwesomeIcons.wind),
+            label: 'Windspeed',
+          ),
+        ],
+      ),
+      body: <Widget>[
+        temperatureWt(),
+        humidity(),
+        windspeed(),
+      ][currentPageIndex],
+    );
+  }
+
+  Widget temperatureWt(){
     return SafeArea(
       child: SingleChildScrollView(
         child: Center(  
@@ -135,6 +173,17 @@ class _WeatherState extends State<Weather> with AutomaticKeepAliveClientMixin{
           ),
         ),
       ),
+    ); 
+  }
+
+  Widget humidity(){
+    return SafeArea(
+      child: Text('humidity'),
+    );
+  }
+  Widget windspeed(){
+    return SafeArea(
+      child: Text('windspeed'),
     );
   }
 }

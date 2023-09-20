@@ -1,5 +1,6 @@
 import 'package:alarm_clock/page/alarm.dart';
 import 'package:alarm_clock/page/lovedays.dart';
+import 'package:alarm_clock/page/read_pdf.dart';
 import 'package:alarm_clock/page/todo.dart';
 import 'package:alarm_clock/page/weather.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,8 @@ class _HomeState extends State<Home> {
           Weather(),
           // _tabBarViewItem(Icons.heart_broken, 'Lovedays'),
           Lovedays(),
-          _tabBarViewItem(Icons.picture_as_pdf_outlined, 'PDF'),
+          // _tabBarViewItem(Icons.picture_as_pdf_outlined, 'PDF'),
+          ReadPdf()
         ],
       ),
     );
@@ -168,7 +170,7 @@ class _HomeState extends State<Home> {
         ),
         Tab(
           iconMargin: EdgeInsets.all(0),
-          icon: Icon(Icons.heart_broken),
+          icon: Icon(Icons.favorite_border_outlined),
           text: 'Lovedays',
         ),
         Tab(

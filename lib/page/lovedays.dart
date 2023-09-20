@@ -23,7 +23,7 @@ class _LovedaysState extends State<Lovedays> with AutomaticKeepAliveClientMixin{
             currentPageIndex = index;
           });
         },
-        indicatorColor: Colors.amber[800],
+        indicatorColor: Colors.red.shade200,
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
@@ -32,14 +32,38 @@ class _LovedaysState extends State<Lovedays> with AutomaticKeepAliveClientMixin{
             label: 'Love day',
           ),
           NavigationDestination(
+            selectedIcon: Icon(Icons.favorite),
             icon: Icon(Icons.favorite_border_rounded),
             label: 'Love all the time',
           ),
         ],
       ),
       body: <Widget>[
-        SafeArea(
-          child: Padding(
+        loveDay(),
+        loveAllTheTime(),
+      ][currentPageIndex],
+    );
+  }
+
+  Widget loveDay(){
+    return SafeArea(
+      child: Column(
+        children: [
+          Padding(
+            
+            padding: const EdgeInsets.only(
+              top: 20,
+              bottom: 20,
+            ),
+            child: Text(
+              'Celebrate love on a day of your choice',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Padding(
             padding: const EdgeInsets.only(
               top: 20,
               bottom: 20,
@@ -65,16 +89,30 @@ class _LovedaysState extends State<Lovedays> with AutomaticKeepAliveClientMixin{
               ),
             ),
           ),
+          Container(
+            margin: EdgeInsets.all(35),
+            child: Image.asset(
+              'assets/icon/icon.png',
+              fit: BoxFit.cover,
+            )
+          ),
+
+        ],
+      ),
+    );
+  }
+  Widget loveAllTheTime(){
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 20,
+          bottom: 20,
+          left: 40,
+          right: 40,
         ),
-        SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(
-              top: 20,
-              bottom: 20,
-              left: 40,
-              right: 40,
-            ),
-            child: TextField(
+        child: Column(
+          children: [
+            TextField(
               readOnly: true,
               decoration: InputDecoration(
                 hintText: 'Celebrate love',
@@ -93,9 +131,28 @@ class _LovedaysState extends State<Lovedays> with AutomaticKeepAliveClientMixin{
                 ),
               ),
             ),
-          ),
+            TextField(
+              readOnly: true,
+              decoration: InputDecoration(
+                hintText: 'Celebrate love',
+                fillColor: Colors.red,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime(2150),
+                    );
+                  },
+                  icon: const Icon(Icons.calendar_today),
+                ),
+              ),
+            ),
+          ],
         ),
-      ][currentPageIndex],
+      ),
     );
   }
 }
+
