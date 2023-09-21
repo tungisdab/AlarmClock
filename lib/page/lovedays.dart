@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Lovedays extends StatefulWidget {
   const Lovedays({super.key});
@@ -8,11 +10,27 @@ class Lovedays extends StatefulWidget {
 }
 
 class _LovedaysState extends State<Lovedays> with AutomaticKeepAliveClientMixin{
+
   @override
   bool get wantKeepAlive => true;
 
-  int daylove = 1000;
+  int daylove = 0;
+  String dataDay = DateFormat('dd-MM-yyyy').format(DateTime.utc(2002, 06, 01));
   int currentPageIndex = 0;
+  TextEditingController dateinput = TextEditingController(); 
+
+  @override
+  void initState() {
+    super.initState();
+    _data();
+  }
+
+  void _data(){
+    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    setState(() {
+      
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,19 +92,27 @@ class _LovedaysState extends State<Lovedays> with AutomaticKeepAliveClientMixin{
               ),
               child: TextField(
                 readOnly: true,
+                controller: dateinput,
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(1900),
+                    lastDate: DateTime(2200)
+                  );
+                  
+                  if(pickedDate != null ){
+                    setState(() {
+                        dateinput.text = DateFormat('dd-MM-yyyy').format(pickedDate);
+                        daylove = DateTime.now().difference(pickedDate).inDays.abs();
+                    });
+                  }
+                },
                 decoration: InputDecoration(
-                  hintText: 'Celebrate love',
+                  hintText: '$dataDay',
                   fillColor: Colors.red,
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime(2150),
-                      );
-                    },
-                    icon: const Icon(Icons.calendar_today),
+                  suffixIcon: Icon(
+                    Icons.calendar_today
                   ),
                 ),
               ),
