@@ -278,6 +278,10 @@ class _LovedaysState extends State<Lovedays> with AutomaticKeepAliveClientMixin{
             ),
             Text(
               '$twoDayGap',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              )
             ),
           ],
         ),
