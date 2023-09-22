@@ -15,9 +15,14 @@ class _LovedaysState extends State<Lovedays> with AutomaticKeepAliveClientMixin{
   bool get wantKeepAlive => true;
 
   int daylove = 0;
-  String dataDay = DateFormat('dd-MM-yyyy').format(DateTime.utc(2002, 06, 01));
-  int currentPageIndex = 0;
+  String textDay = 'Celebrate love';
+  DateTime date1 = DateTime.now();
+  DateTime date2 = DateTime.now();
   TextEditingController dateinput = TextEditingController(); 
+  TextEditingController dateinput1 = TextEditingController(); 
+  TextEditingController dateinput2 = TextEditingController(); 
+  int twoDayGap = 0;
+  int currentPageIndex = 0;
 
   @override
   void initState() {
@@ -25,10 +30,21 @@ class _LovedaysState extends State<Lovedays> with AutomaticKeepAliveClientMixin{
     _data();
   }
 
-  void _data(){
-    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  void _data() async{
+    // final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final dataDay = await SharedPreferences.getInstance();
+    final dataDayLove = await SharedPreferences.getInstance();
+
     setState(() {
-      
+      // textDay = (dataDay != DateTime.utc(01, 01, 01)) ? DateFormat('dd-MM-yyyy').format(DateTime.utc(2002, 06, 01)) : 'Celebrate love';
+      if(dataDay.getString('dataDay') != null){
+        textDay = dataDay.getString('dataDay')!;
+        daylove = dataDayLove.getInt('dataDayLove')!;
+      }
+      else{
+        textDay = 'Celebrate love';
+        daylove = 0;
+      }
     });
   }
 
@@ -94,6 +110,8 @@ class _LovedaysState extends State<Lovedays> with AutomaticKeepAliveClientMixin{
                 readOnly: true,
                 controller: dateinput,
                 onTap: () async {
+                  final dataDay = await SharedPreferences.getInstance();
+                  final dataDayLove = await SharedPreferences.getInstance();
                   DateTime? pickedDate = await showDatePicker(
                     context: context,
                     initialDate: DateTime.now(),
@@ -104,12 +122,14 @@ class _LovedaysState extends State<Lovedays> with AutomaticKeepAliveClientMixin{
                   if(pickedDate != null ){
                     setState(() {
                         dateinput.text = DateFormat('dd-MM-yyyy').format(pickedDate);
+                        dataDay.setString('dataDay', dateinput.text);
                         daylove = DateTime.now().difference(pickedDate).inDays.abs();
+                        dataDayLove.setInt('dataDayLove', daylove);
                     });
                   }
                 },
                 decoration: InputDecoration(
-                  hintText: '$dataDay',
+                  hintText: '$textDay',
                   fillColor: Colors.red,
                   suffixIcon: Icon(
                     Icons.calendar_today
@@ -195,40 +215,69 @@ class _LovedaysState extends State<Lovedays> with AutomaticKeepAliveClientMixin{
           children: [
             TextField(
               readOnly: true,
-              decoration: InputDecoration(
-                hintText: 'Celebrate love',
-                fillColor: Colors.yellow,
-                prefixIconColor: Colors.yellow,
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1900),
-                      lastDate: DateTime(2150),
-                    );
-                  },
-                  icon: const Icon(Icons.calendar_today),
-                ),
-              ),
-            ),
-            TextField(
-              readOnly: true,
+              controller: dateinput1,
+              onTap: () async {
+                DateTime? pickedDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime(2200)
+                );
+                
+                if(pickedDate != null ){
+                  setState(() {
+                      dateinput1.text = DateFormat('dd-MM-yyyy').format(pickedDate);
+                      // daylove = DateTime.now().difference(pickedDate).inDays.abs();
+                      date1 = pickedDate;
+                  });
+                }
+              },
               decoration: InputDecoration(
                 hintText: 'Celebrate love',
                 fillColor: Colors.red,
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1900),
-                      lastDate: DateTime(2150),
-                    );
-                  },
-                  icon: const Icon(Icons.calendar_today),
+                suffixIcon: Icon(
+                  Icons.calendar_today
                 ),
               ),
+            ),
+
+            TextField(
+              readOnly: true,
+              controller: dateinput2,
+              onTap: () async {
+                DateTime? pickedDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime(2200)
+                );
+                
+                if(pickedDate != null ){
+                  setState(() {
+                      dateinput2.text = DateFormat('dd-MM-yyyy').format(pickedDate);
+                      // daylove = DateTime.now().difference(pickedDate).inDays.abs();
+                      date2 = pickedDate;
+                  });
+                }
+              },
+              decoration: InputDecoration(
+                hintText: 'Celebrate love',
+                fillColor: Colors.red,
+                suffixIcon: Icon(
+                  Icons.calendar_today
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: (){
+                setState(() {
+                  twoDayGap = date1.difference(date2).inDays.abs();
+                });
+              },
+              child: Text('Calculate'),
+            ),
+            Text(
+              '$twoDayGap',
             ),
           ],
         ),
