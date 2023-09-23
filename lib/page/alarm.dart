@@ -79,95 +79,139 @@ class _AlarmState extends State<Alarm> with AutomaticKeepAliveClientMixin{
 
   Widget alarm(){
     return SingleChildScrollView(
-      child: Center(
-        child: Column(
-          children: [
-            Text(
-              'Bây giờ là:',
-              style: TextStyle(fontSize: 14),
+      child: Column(
+        children: [
+          Text(
+            'Bây giờ là:',
+            style: TextStyle(fontSize: 14),
+          ),
+          Text(
+            // '${_time.hour}:${_time.minute}:${_time.second}',
+            timeCurrent,
+            style: TextStyle(fontSize: 20),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: (){
+                    LocalNotification.showBigTextNotification(
+                      title: "Khánh hiện lên và nói",
+                      body: "Dậy thôi con trai",
+                      fln: flutterLocalNotificationsPlugin,
+                    );
+                  },
+                  child: Text(
+                    "Get up",
+                    style: const TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width/2,
+                    height: MediaQuery.of(context).size.width/2,
+                    child: Image.asset('assets/icon/icon.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Text(
-              // '${_time.hour}:${_time.minute}:${_time.second}',
-              timeCurrent,
-              style: TextStyle(fontSize: 20),
-            ),
-            ElevatedButton(
-              onPressed: (){
-                LocalNotification.showBigTextNotification(
-                  title: "Khánh hiện lên và nói",
-                  body: "Dậy thôi con trai",
-                  fln: flutterLocalNotificationsPlugin,
-                );
-              },
-              child: Text(
-                "   Get up   ",
-                style: const TextStyle(
-                  fontSize: 18,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Container(
+                  width: MediaQuery.of(context).size.width/2,
+                  height: MediaQuery.of(context).size.width/2,
+                  child: Image.asset('assets/icon/icon.png',
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                await TimeSchedule.showFullScreenNotification(
-                  context: context,
-                  fln: flutterLocalNotificationsPlugin,
-                  timeAlarm: 10,
-                );
-              },
-              child: Text(
-                "1/6 hours",
-                style: const TextStyle(
-                  fontSize: 18,
-                ),
+              Column(
+                children: [
+                  ElevatedButton(
+                    onPressed: () async {
+                      await TimeSchedule.showFullScreenNotification(
+                        context: context,
+                        fln: flutterLocalNotificationsPlugin,
+                        timeAlarm: 10,
+                      );
+                    },
+                    
+                    child: Text(
+                      "1/6 hours",
+                      style: const TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await TimeSchedule.showFullScreenNotification(
+                        context: context,
+                        fln: flutterLocalNotificationsPlugin,
+                        timeAlarm: 15,
+                      );
+                    },
+                    child: Text(
+                      "1/4 hours",
+                      style: const TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await TimeSchedule.showFullScreenNotification(
+                        context: context,
+                        fln: flutterLocalNotificationsPlugin,
+                        timeAlarm: 20,
+                      );
+                    },
+                    child: Text(
+                      "1/3 hours",
+                      style: const TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await TimeSchedule.showFullScreenNotification(
+                        context: context,
+                        fln: flutterLocalNotificationsPlugin,
+                        timeAlarm: 30,
+                      );
+                    },
+                    child: Text(
+                      "1/2 hours",
+                      style: const TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                await TimeSchedule.showFullScreenNotification(
-                  context: context,
-                  fln: flutterLocalNotificationsPlugin,
-                  timeAlarm: 15,
-                );
-              },
-              child: Text(
-                "1/4 hours",
-                style: const TextStyle(
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                await TimeSchedule.showFullScreenNotification(
-                  context: context,
-                  fln: flutterLocalNotificationsPlugin,
-                  timeAlarm: 20,
-                );
-              },
-              child: Text(
-                "1/3 hours",
-                style: const TextStyle(
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                await TimeSchedule.showFullScreenNotification(
-                  context: context,
-                  fln: flutterLocalNotificationsPlugin,
-                  timeAlarm: 30,
-                );
-              },
-              child: Text(
-                "1/2 hours",
-                style: const TextStyle(
-                  fontSize: 18,
-                ),
-              ),
-            ),
-          ],
-        ),
+            ],
+          ),
+          Container(
+            margin: EdgeInsets.all(35),
+            child: Image.asset(
+              'assets/icon/icon.png',
+              fit: BoxFit.cover,
+            )
+          ),
+        ],
       ),
     );
   }
