@@ -203,87 +203,99 @@ class _LovedaysState extends State<Lovedays> with AutomaticKeepAliveClientMixin{
     );
   }
   Widget loveAllTheTime(){
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 20,
-          bottom: 20,
-          left: 40,
-          right: 40,
-        ),
-        child: Column(
-          children: [
-            TextField(
-              readOnly: true,
-              controller: dateinput1,
-              onTap: () async {
-                DateTime? pickedDate = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(1900),
-                  lastDate: DateTime(2200)
-                );
-                
-                if(pickedDate != null ){
-                  setState(() {
-                      dateinput1.text = DateFormat('dd-MM-yyyy').format(pickedDate);
-                      // daylove = DateTime.now().difference(pickedDate).inDays.abs();
-                      date1 = pickedDate;
-                  });
-                }
-              },
-              decoration: InputDecoration(
-                hintText: 'Celebrate love',
-                fillColor: Colors.red,
-                suffixIcon: Icon(
-                  Icons.calendar_today
+    return SingleChildScrollView(
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            top: 20,
+            bottom: 20,
+            left: 40,
+            right: 40,
+          ),
+          child: Column(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Container(
+                  width: MediaQuery.of(context).size.width/2,
+                  height: MediaQuery.of(context).size.width/2,
+                  child: Image.asset('assets/icon/icon.png',
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-
-            TextField(
-              readOnly: true,
-              controller: dateinput2,
-              onTap: () async {
-                DateTime? pickedDate = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(1900),
-                  lastDate: DateTime(2200)
-                );
-                
-                if(pickedDate != null ){
-                  setState(() {
-                      dateinput2.text = DateFormat('dd-MM-yyyy').format(pickedDate);
-                      // daylove = DateTime.now().difference(pickedDate).inDays.abs();
-                      date2 = pickedDate;
-                  });
-                }
-              },
-              decoration: InputDecoration(
-                hintText: 'Celebrate love',
-                fillColor: Colors.red,
-                suffixIcon: Icon(
-                  Icons.calendar_today
+              TextField(
+                readOnly: true,
+                controller: dateinput1,
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(1900),
+                    lastDate: DateTime(2200)
+                  );
+                  
+                  if(pickedDate != null ){
+                    setState(() {
+                        dateinput1.text = DateFormat('dd-MM-yyyy').format(pickedDate);
+                        // daylove = DateTime.now().difference(pickedDate).inDays.abs();
+                        date1 = pickedDate;
+                    });
+                  }
+                },
+                decoration: InputDecoration(
+                  hintText: 'Celebrate love',
+                  fillColor: Colors.red,
+                  suffixIcon: Icon(
+                    Icons.calendar_today
+                  ),
                 ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: (){
-                setState(() {
-                  twoDayGap = date1.difference(date2).inDays.abs();
-                });
-              },
-              child: Text('Calculate'),
-            ),
-            Text(
-              '$twoDayGap',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              )
-            ),
-          ],
+    
+              TextField(
+                readOnly: true,
+                controller: dateinput2,
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(1900),
+                    lastDate: DateTime(2200)
+                  );
+                  
+                  if(pickedDate != null ){
+                    setState(() {
+                        dateinput2.text = DateFormat('dd-MM-yyyy').format(pickedDate);
+                        // daylove = DateTime.now().difference(pickedDate).inDays.abs();
+                        date2 = pickedDate;
+                    });
+                  }
+                },
+                decoration: InputDecoration(
+                  hintText: 'Celebrate love',
+                  fillColor: Colors.red,
+                  suffixIcon: Icon(
+                    Icons.calendar_today
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: (){
+                  setState(() {
+                    twoDayGap = date1.difference(date2).inDays.abs();
+                  });
+                },
+                child: Text('Calculate'),
+              ),
+              Text(
+                '$twoDayGap',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                )
+              ),
+            ],
+          ),
         ),
       ),
     );

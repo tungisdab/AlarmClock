@@ -31,9 +31,9 @@ class _TodoItemState extends State<TodoItem> {
             ),
             leading: Icon(
               todo.isDone == true ? Icons.check_box : Icons.check_box_outline_blank,
-              color: Colors.lime,
+              color: Colors.red,
             ),
-            tileColor: const Color.fromARGB(255, 238, 138, 131),
+            tileColor: Colors.grey.shade300,
             title: Text(
               todo.todoText!,
               style: TextStyle(

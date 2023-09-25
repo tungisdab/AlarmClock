@@ -63,6 +63,9 @@ class _HomeState extends State<Home> {
     return PreferredSize(
       preferredSize: const Size.fromHeight(150),
       child: Container(
+        margin: EdgeInsets.only(
+          
+        ),
         padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: _boxDecoration(),
         child: SafeArea(
@@ -82,11 +85,11 @@ class _HomeState extends State<Home> {
   BoxDecoration _boxDecoration() {
     return BoxDecoration(
       borderRadius: const BorderRadius.vertical(
-        bottom: Radius.circular(20),
-        top: Radius.circular(20),
+        bottom: Radius.circular(0),
+        top: Radius.circular(0),
       ),
       gradient: LinearGradient(
-        colors: [Color.fromARGB(255, 237, 80, 59), Color.fromARGB(255, 226, 104, 104)],
+        colors: [Colors.red, Colors.red],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
