@@ -211,6 +211,13 @@ class _AlarmState extends State<Alarm> with AutomaticKeepAliveClientMixin{
               fit: BoxFit.cover,
             )
           ),
+          Container(
+            margin: EdgeInsets.all(35),
+            child: Image.asset(
+              'assets/icon/icon.png',
+              fit: BoxFit.cover,
+            )
+          ),
         ],
       ),
     );

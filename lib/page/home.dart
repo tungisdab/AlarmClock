@@ -43,45 +43,47 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(),
-      body: TabBarView(
+      body: Column(
         children: [
-          Alarm(),
-          // _tabBarViewItem(Icons.task, 'Todo List'),
-          Todo(),
-          _tabBarViewItem(Icons.my_library_music_outlined, 'Music'),
-          // _tabBarViewItem(Icons.sunny_snowing, 'Weather'),
-          Weather(),
-          // _tabBarViewItem(Icons.heart_broken, 'Lovedays'),
-          Lovedays(),
-          // _tabBarViewItem(Icons.picture_as_pdf_outlined, 'PDF'),
-          ReadPdf()
+          Divider(
+            height: 1.5,
+            thickness: 1.5,
+            color: Colors.red,
+          ),
+          Expanded(
+            child: TabBarView(
+              children: [
+                Alarm(),
+                // _tabBarViewItem(Icons.task, 'Todo List'),
+                Todo(),
+                _tabBarViewItem(Icons.my_library_music_outlined, 'Music'),
+                Weather(),
+                Lovedays(),
+                ReadPdf(),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
   PreferredSize _appBar() {
     return PreferredSize(
-      preferredSize: const Size.fromHeight(150),
+      preferredSize: const Size.fromHeight(130),
       child: Container(
-        margin: EdgeInsets.only(
-          
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: _boxDecoration(),
-        child: SafeArea(
-          child: Column(
-            children: [
-              _topBar(),
-              const SizedBox(height: 5),
-              _searchBox(),
-              _tabBar(),
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _space(),
+            _topBar(),
+            _tabBar(),
+          ],
         ),
       ),
     );
   }
-
+  
   BoxDecoration _boxDecoration() {
     return BoxDecoration(
       borderRadius: const BorderRadius.vertical(
@@ -89,7 +91,7 @@ class _HomeState extends State<Home> {
         top: Radius.circular(0),
       ),
       gradient: LinearGradient(
-        colors: [Colors.red, Colors.red],
+        colors: [Colors.white, Colors.white],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -97,24 +99,40 @@ class _HomeState extends State<Home> {
   }
 
   Widget _topBar() {
-    return Row(
-      children: [
-        Image.asset(
-          'assets/images/ah4.png',
-          scale: 50,
-        ),
-        const Expanded(
-          child: Text(
-            'My Heartbeats',
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Color.fromARGB(255, 220, 231, 117), fontSize: 16),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Heartbeats',
+            style: TextStyle(
+              color: Colors.red, 
+              fontSize: 25,
+              fontWeight: FontWeight.normal,
+            ),
           ),
-        ),
-        const CircleAvatar(
-          radius: 15,
-          backgroundImage: AssetImage('assets/icon/icon.png'),
-        )
-      ],
+          Row(
+            children: [
+              CircleAvatar(
+                child: Icon(
+                  Icons.search_outlined,
+                  color: Colors.red,
+                  size: 30,
+                ),
+                backgroundColor: Colors.grey.shade300,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+              ),
+              CircleAvatar(
+                backgroundImage: AssetImage('assets/icon/icon.png'),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -144,42 +162,44 @@ class _HomeState extends State<Home> {
     );
   }
 
+  Widget _space() {
+    return SizedBox(
+      height: 10,
+    );
+  }
+
   Widget _tabBar() {
     return TabBar(
       labelPadding: const EdgeInsets.all(0),
-      labelColor: Colors.lime.shade300,
-      indicatorColor: Colors.black,
-      unselectedLabelColor: Colors.white,
+      labelColor: Colors.red,
+      indicatorColor: Colors.red,
+      unselectedLabelColor: Colors.grey.shade500,
+      
       tabs: const [
         Tab(
           iconMargin: EdgeInsets.all(0),
           icon: Icon(Icons.alarm),
-          text: 'Alarm',
+          // text: 'Alarm',
         ),
         Tab(
           iconMargin: EdgeInsets.all(0),
           icon: Icon(Icons.task),
-          text: 'Todo',
         ),
         Tab(
           iconMargin: EdgeInsets.all(0),
           icon: Icon(Icons.my_library_music_outlined),
-          text: 'Music',
         ),
         Tab(
           iconMargin: EdgeInsets.all(0),
           icon: Icon(Icons.sunny_snowing),
-          text: 'Weather',
         ),
         Tab(
           iconMargin: EdgeInsets.all(0),
           icon: Icon(Icons.favorite_border_outlined),
-          text: 'Lovedays',
         ),
         Tab(
           iconMargin: EdgeInsets.all(0),
           icon: Icon(Icons.picture_as_pdf_outlined),
-          text: 'PDF',
         ),
       ],
     );

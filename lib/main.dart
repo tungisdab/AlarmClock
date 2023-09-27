@@ -5,6 +5,13 @@ import 'package:flutter/services.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.manual, 
+    overlays: [
+      SystemUiOverlay.top,
+      SystemUiOverlay.bottom,
+    ]
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -18,8 +25,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+
     return MaterialApp(
+      
       home: DefaultTabController(
         length: 6,
         child: Home(),
