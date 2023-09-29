@@ -2,6 +2,7 @@ import 'package:alarm_clock/page/alarm.dart';
 import 'package:alarm_clock/page/lovedays.dart';
 import 'package:alarm_clock/page/music.dart';
 import 'package:alarm_clock/page/read_pdf.dart';
+import 'package:alarm_clock/page/sign_up_page.dart';
 import 'package:alarm_clock/page/todo.dart';
 import 'package:alarm_clock/page/weather.dart';
 import 'package:flutter/material.dart';
@@ -127,8 +128,16 @@ class _HomeState extends State<Home> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
               ),
-              CircleAvatar(
-                backgroundImage: AssetImage('assets/icon/icon.png'),
+              InkWell(
+                onTap: (){
+                   Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUpPage()),
+                  );
+                },
+                child: CircleAvatar(
+                  backgroundImage: AssetImage('assets/icon/icon.png'),
+                ),
               ),
             ],
           ),

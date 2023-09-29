@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:alarm_clock/page/file_folder_pdf.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -125,9 +126,7 @@ class _ReadPdfState extends State<ReadPdf> with AutomaticKeepAliveClientMixin{
   }
 
   Widget fileFolder(){
-    return SafeArea(
-      child: Text('fileFolder'),
-    );
+    return FileFolderPdf();
   }
 
 }
