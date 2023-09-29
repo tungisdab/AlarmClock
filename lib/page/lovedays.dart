@@ -33,13 +33,17 @@ class _LovedaysState extends State<Lovedays> with AutomaticKeepAliveClientMixin{
   void _data() async{
     // final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final dataDay = await SharedPreferences.getInstance();
-    final dataDayLove = await SharedPreferences.getInstance();
+    // final dataDayLove = await SharedPreferences.getInstance();
 
     setState(() {
       // textDay = (dataDay != DateTime.utc(01, 01, 01)) ? DateFormat('dd-MM-yyyy').format(DateTime.utc(2002, 06, 01)) : 'Celebrate love';
       if(dataDay.getString('dataDay') != null){
         textDay = dataDay.getString('dataDay')!;
-        daylove = dataDayLove.getInt('dataDayLove')!;
+        // daylove = dataDayLove.getInt('dataDayLove')!;
+        print(textDay);
+        DateFormat dateFormat = DateFormat('dd-MM-yyyy');
+        DateTime dateTime = dateFormat.parse(textDay);
+        daylove = DateTime.now().difference(dateTime).inDays.abs();
       }
       else{
         textDay = 'Celebrate love';

@@ -1,9 +1,12 @@
 import 'package:alarm_clock/page/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.manual, 
@@ -22,6 +25,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  firebase_auth.FirebaseAuth auth = firebase_auth.FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:alarm_clock/page/alarm.dart';
 import 'package:alarm_clock/page/lovedays.dart';
+import 'package:alarm_clock/page/music.dart';
 import 'package:alarm_clock/page/read_pdf.dart';
 import 'package:alarm_clock/page/todo.dart';
 import 'package:alarm_clock/page/weather.dart';
@@ -56,7 +57,7 @@ class _HomeState extends State<Home> {
                 Alarm(),
                 // _tabBarViewItem(Icons.task, 'Todo List'),
                 Todo(),
-                _tabBarViewItem(Icons.my_library_music_outlined, 'Music'),
+                Music(),
                 Weather(),
                 Lovedays(),
                 ReadPdf(),
@@ -69,7 +70,7 @@ class _HomeState extends State<Home> {
   }
   PreferredSize _appBar() {
     return PreferredSize(
-      preferredSize: const Size.fromHeight(130),
+      preferredSize: const Size.fromHeight(100),
       child: Container(
         decoration: _boxDecoration(),
         child: Column(
@@ -164,7 +165,7 @@ class _HomeState extends State<Home> {
 
   Widget _space() {
     return SizedBox(
-      height: 10,
+      height: 30,
     );
   }
 
@@ -173,8 +174,16 @@ class _HomeState extends State<Home> {
       labelPadding: const EdgeInsets.all(0),
       labelColor: Colors.red,
       indicatorColor: Colors.red,
-      unselectedLabelColor: Colors.grey.shade500,
-      
+      unselectedLabelColor: Colors.grey.shade600,
+      indicator: BoxDecoration(  
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.red,
+            width: 2,
+            
+          ),
+        ),
+      ),
       tabs: const [
         Tab(
           iconMargin: EdgeInsets.all(0),
