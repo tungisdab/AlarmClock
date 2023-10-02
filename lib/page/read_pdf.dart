@@ -80,48 +80,59 @@ class _ReadPdfState extends State<ReadPdf> with AutomaticKeepAliveClientMixin{
   }
 
   Widget readFile(){
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            'This is a well-known book called Game Theory.',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+    return SingleChildScrollView(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+             SizedBox(
+              height: 50,
             ),
-          ),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Container(
-              width: MediaQuery.of(context).size.width/1.3,
-              height: MediaQuery.of(context).size.width/1.3,
-              child: Image.asset('assets/images/gameTheory.jpg',
-                fit: BoxFit.cover,
+            Text(
+              'This is a well-known book called Game Theory.',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-          ElevatedButton(
-            child: Text("Open PDF"),
-            onPressed: () {
-              if (pathPDF.isNotEmpty) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PDFScreen(path: pathPDF),
-                  ),
-                );
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+            SizedBox(
+              height: 50,
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Container(
+                width: MediaQuery.of(context).size.width/1.3,
+                height: MediaQuery.of(context).size.width/1.3,
+                child: Image.asset('assets/images/gameTheory.jpg',
+                  fit: BoxFit.cover,
+                ),
               ),
-            )
-          ),
-        ],
-      )
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            ElevatedButton(
+              child: Text("Open PDF"),
+              onPressed: () {
+                if (pathPDF.isNotEmpty) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PDFScreen(path: pathPDF),
+                    ),
+                  );
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              )
+            ),
+          ],
+        )
+      ),
     );
   }
 

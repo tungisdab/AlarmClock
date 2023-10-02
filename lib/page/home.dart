@@ -2,6 +2,7 @@ import 'package:alarm_clock/page/alarm.dart';
 import 'package:alarm_clock/page/lovedays.dart';
 import 'package:alarm_clock/page/music.dart';
 import 'package:alarm_clock/page/read_pdf.dart';
+import 'package:alarm_clock/page/sign_in_page.dart';
 import 'package:alarm_clock/page/sign_up_page.dart';
 import 'package:alarm_clock/page/todo.dart';
 import 'package:alarm_clock/page/weather.dart';

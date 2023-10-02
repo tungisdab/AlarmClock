@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
-    List images = [
-      "assets/images/fb1.png",
-      "assets/images/gg1.png",
-      "assets/images/tw1.png",
-
-    ];
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -28,21 +22,9 @@ class _SignUpPageState extends State<SignUpPage> {
               height: heightScreen * 0.3,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/a10.jpg'),
+                  image: AssetImage('assets/images/a8.jpg'),
                   fit: BoxFit.cover,
                 ),
-              ),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: heightScreen * 0.15,
-                  ),
-                  CircleAvatar(
-                    radius: 60,
-                    backgroundColor: Colors.white,
-                    backgroundImage: AssetImage('assets/images/a9.jpg'),
-                  )
-                ],
               ),
             ),
             Container(
@@ -59,7 +41,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     )
                   ),
                   Text(
-                    'Sign up',  
+                    'Sign into your account',  
                     style: TextStyle(
                       fontSize: 20, 
                       color: Colors.grey
@@ -83,8 +65,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     child: TextField(
                       decoration: InputDecoration(
-                        hintText: 'Email',
-                        prefixIcon: Icon(Icons.email_outlined),
+                        labelText: 'Username',
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide(
@@ -123,8 +104,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     child: TextField(
                       decoration: InputDecoration(
-                        hintText: 'Password',
-                        prefixIcon: Icon(Icons.password_outlined),
+                        labelText: 'Password',
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide(
@@ -148,8 +128,25 @@ class _SignUpPageState extends State<SignUpPage> {
                   SizedBox(
                     height: 20,
                   ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(),
+                      ),
+                      Text(
+                        'Forgot your password',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
+            ),
+            SizedBox(
+              height: 50,
             ),  
             Container(
               width: widthScreen * 0.5,
@@ -163,7 +160,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               child: Center(
                 child: Text(
-                  'Sign up',
+                  'Sign in',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 36,
@@ -173,36 +170,24 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             SizedBox(
-              height: heightScreen * 0.05,
+              height: heightScreen * 0.08,
             ),
             RichText(
               text: TextSpan(
-                text: 'Sign up using one of the following methods',
+                text: 'Don\'t have an account? ',
                 style: TextStyle(
                   color: Colors.grey,
-                  fontSize: 16,
-                )
-              ),
-            ),
-            Wrap(
-              children: List<Widget>.generate(
-                3,
-                (index){
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-                      radius: 32,
-                      backgroundColor: Colors.white,
-                      child: CircleAvatar(
-                        radius: 25,
-                        backgroundColor: Colors.white,
-                        backgroundImage: AssetImage(
-                          images[index]
-                        ),
-                      ),
+                  fontSize: 15,
+                ),
+                children: [
+                  TextSpan(
+                    text: 'Sign up',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 15,
                     ),
-                  );
-                }
+                  ),
+                ],
               ),
             ),
           ],
