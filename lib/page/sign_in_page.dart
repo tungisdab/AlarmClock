@@ -1,4 +1,7 @@
+import 'package:alarm_clock/page/sign_up_page.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -66,6 +69,10 @@ class _SignInPageState extends State<SignInPage> {
                     child: TextField(
                       decoration: InputDecoration(
                         labelText: 'Username',
+                        prefixIcon: Icon(
+                          Icons.email_outlined,
+                          color: Colors.grey,
+                        ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide(
@@ -105,6 +112,10 @@ class _SignInPageState extends State<SignInPage> {
                     child: TextField(
                       decoration: InputDecoration(
                         labelText: 'Password',
+                        prefixIcon: Icon(
+                          Icons.password_outlined,
+                          color: Colors.grey,
+                        ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide(
@@ -170,22 +181,23 @@ class _SignInPageState extends State<SignInPage> {
               ),
             ),
             SizedBox(
-              height: heightScreen * 0.08,
+              height: heightScreen * 0.07,
             ),
             RichText(
               text: TextSpan(
                 text: 'Don\'t have an account? ',
                 style: TextStyle(
                   color: Colors.grey,
-                  fontSize: 15,
+                  fontSize: 20,
                 ),
                 children: [
                   TextSpan(
                     text: 'Sign up',
                     style: TextStyle(
                       color: Colors.blue,
-                      fontSize: 15,
+                      fontSize: 20,
                     ),
+                    recognizer: TapGestureRecognizer()..onTap = () => Get.to(()=> SignUpPage())
                   ),
                 ],
               ),

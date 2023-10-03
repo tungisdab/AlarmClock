@@ -6,6 +6,7 @@ import 'package:alarm_clock/page/sign_in_page.dart';
 import 'package:alarm_clock/page/sign_up_page.dart';
 import 'package:alarm_clock/page/todo.dart';
 import 'package:alarm_clock/page/weather.dart';
+import 'package:alarm_clock/page/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:alarm_clock/page/notification.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -133,7 +134,7 @@ class _HomeState extends State<Home> {
                 onTap: (){
                    Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SignUpPage()),
+                    MaterialPageRoute(builder: (context) => WelcomePage()),
                   );
                 },
                 child: CircleAvatar(
