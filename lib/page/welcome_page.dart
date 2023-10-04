@@ -1,7 +1,9 @@
+import 'package:alarm_clock/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatefulWidget {
-  const WelcomePage({super.key});
+  String email;
+  WelcomePage({super.key, required this.email});
 
   @override
   State<WelcomePage> createState() => _WelcomePageState();
@@ -10,6 +12,7 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
+    String email = widget.email;
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -53,7 +56,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     )
                   ),
                   Text(
-                    'Khánh đã ẩn danh',  
+                    email,  
                     style: TextStyle(
                       fontSize: 20, 
                       color: Colors.grey
@@ -65,23 +68,28 @@ class _WelcomePageState extends State<WelcomePage> {
                 ],
               ),
             ),  
-            Container(
-              width: widthScreen * 0.5,
-              height: heightScreen * 0.08,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                image: DecorationImage(
-                  image: AssetImage('assets/images/a8.jpg'),
-                  fit: BoxFit.cover,
+            GestureDetector(
+              onTap: (){
+                AuthController.instance.signOut();
+              },
+              child: Container(
+                width: widthScreen * 0.5,
+                height: heightScreen * 0.08,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/a8.jpg'),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              child: Center(
-                child: Text(
-                  'Sign out',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold,
+                child: Center(
+                  child: Text(
+                    'Sign out',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),

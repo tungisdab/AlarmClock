@@ -43,7 +43,7 @@ class _AlarmState extends State<Alarm> with AutomaticKeepAliveClientMixin{
             currentPageIndex = index;
           });
         },
-        height: 60,
+        height: 60 ,
         indicatorColor: Colors.red.shade200,
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[

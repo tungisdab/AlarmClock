@@ -1,3 +1,4 @@
+import 'package:alarm_clock/controller/auth_controller.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,8 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
+    var emailController = TextEditingController();
+    var passwordController = TextEditingController();
     List images = [
       "assets/images/fb1.png",
       "assets/images/gg1.png",
@@ -84,6 +87,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ]
                     ),
                     child: TextField(
+                      controller: emailController,
                       decoration: InputDecoration(
                         hintText: 'Email',
                         prefixIcon: Icon(Icons.email_outlined),
@@ -124,6 +128,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       ]
                     ),
                     child: TextField(
+                      controller: passwordController,
+                      obscureText: true,
                       decoration: InputDecoration(
                         hintText: 'Password',
                         prefixIcon: Icon(Icons.password_outlined),
@@ -153,23 +159,28 @@ class _SignUpPageState extends State<SignUpPage> {
             SizedBox(
               height: 40,
             ),
-            Container(
-              width: widthScreen * 0.5,
-              height: heightScreen * 0.08,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                image: DecorationImage(
-                  image: AssetImage('assets/images/a8.jpg'),
-                  fit: BoxFit.cover,
+            GestureDetector(
+              onTap: () {
+                AuthController.instance.register(emailController.text.trim(), passwordController.text.trim());
+              },
+              child: Container(
+                width: widthScreen * 0.5,
+                height: heightScreen * 0.08,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/a8.jpg'),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              child: Center(
-                child: Text(
-                  'Sign up',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold,
+                child: Center(
+                  child: Text(
+                    'Sign up',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),

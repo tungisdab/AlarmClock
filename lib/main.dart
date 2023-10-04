@@ -1,4 +1,6 @@
+import 'package:alarm_clock/controller/auth_controller.dart';
 import 'package:alarm_clock/page/home.dart';
+import 'package:alarm_clock/page/home1.dart';
 import 'package:alarm_clock/page/sign_in_page.dart';
 import 'package:alarm_clock/page/welcome_page.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,7 @@ import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp().then((value) => Get.put(AuthController()));
   runApp(MyApp());
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.manual, 
@@ -34,7 +36,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
 
     // return MaterialApp(
-      
     //   home: DefaultTabController(
     //     length: 6,
     //     child: Home(),
@@ -45,6 +46,9 @@ class _MyAppState extends State<MyApp> {
     //   title: 'My heartbeats',
     //   debugShowCheckedModeBanner: false,
     // );
+
+    // return Home1();
+
     return GetMaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.red,

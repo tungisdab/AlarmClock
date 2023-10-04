@@ -20,9 +20,9 @@ def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
-classpath 'com.google.gms:google-services'
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
@@ -77,4 +77,3 @@ dependencies {
     implementation 'androidx.window:window-java:1.0.0'
     implementation "androidx.multidex:multidex:2.0.1"
 }
-apply plugin: 'com.google.gms.google-services'
