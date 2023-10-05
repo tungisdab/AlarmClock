@@ -1,3 +1,4 @@
+import 'package:alarm_clock/controller/auth_controller.dart';
 import 'package:alarm_clock/page/sign_up_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,8 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
+    var emailController = TextEditingController();
+    var passwordController = TextEditingController();
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -67,8 +70,9 @@ class _SignInPageState extends State<SignInPage> {
                       ]
                     ),
                     child: TextField(
+                      controller: emailController,
                       decoration: InputDecoration(
-                        labelText: 'Username',
+                        labelText: 'Email',
                         prefixIcon: Icon(
                           Icons.email_outlined,
                           color: Colors.grey,
@@ -110,6 +114,7 @@ class _SignInPageState extends State<SignInPage> {
                       ]
                     ),
                     child: TextField(
+                      controller: passwordController,
                       decoration: InputDecoration(
                         labelText: 'Password',
                         prefixIcon: Icon(
@@ -159,23 +164,28 @@ class _SignInPageState extends State<SignInPage> {
             SizedBox(
               height: 50,
             ),  
-            Container(
-              width: widthScreen * 0.5,
-              height: heightScreen * 0.08,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                image: DecorationImage(
-                  image: AssetImage('assets/images/a8.jpg'),
-                  fit: BoxFit.cover,
+            GestureDetector(
+              onTap: (){
+                AuthController.instance.signIn(emailController.text.trim(), passwordController.text.trim());
+              },
+              child: Container(
+                width: widthScreen * 0.5,
+                height: heightScreen * 0.08,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/a8.jpg'),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              child: Center(
-                child: Text(
-                  'Sign in',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold,
+                child: Center(
+                  child: Text(
+                    'Sign in',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
