@@ -84,7 +84,11 @@ class AuthController extends GetxController{
   }
 
   void signOut() async{
-    await auth.signOut();
+    try{
+      await auth.signOut();
+    }catch(e){
+      debugPrint(e.toString());
+    }
   }
 
 } 

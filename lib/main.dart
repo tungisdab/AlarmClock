@@ -11,8 +11,14 @@ import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp().then((value) => Get.put(AuthController()));
-  runApp(MyApp());
+  await Firebase.initializeApp(options: FirebaseOptions(apiKey: "AIzaSyCI6Mb-v8EQf1RoEqe3LN-itI_mxm3rqDo", appId: "1:436811213920:android:7d31280f664e4176f8a705", messagingSenderId: "436811213920", projectId: "myself-6849d"),).then((value) => Get.put(AuthController()));
+  // await Firebase.initializeApp().then((e) => Get.put(AuthController()));
+  // try{
+  //   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,).then((e) => Get.put(AuthController()));
+
+  // } catch(e) {
+  //   print("khanh " + e.toString());
+  // }
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.manual, 
     overlays: [
@@ -20,6 +26,7 @@ void main() async {
       SystemUiOverlay.bottom,
     ]
   );
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {

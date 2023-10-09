@@ -12,10 +12,10 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    var emailController = TextEditingController();
-    var passwordController = TextEditingController();
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -115,6 +115,7 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     child: TextField(
                       controller: passwordController,
+                      obscureText: true,
                       decoration: InputDecoration(
                         labelText: 'Password',
                         prefixIcon: Icon(

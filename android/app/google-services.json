@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "311620967840",
-    "project_id": "todo-app-9e66c",
-    "storage_bucket": "todo-app-9e66c.appspot.com"
+    "project_number": "436811213920",
+    "project_id": "myself-6849d",
+    "storage_bucket": "myself-6849d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:311620967840:android:6beaa29409aa97b78158c5",
+        "mobilesdk_app_id": "1:436811213920:android:7d31280f664e4176f8a705",
         "android_client_info": {
           "package_name": "com.example.alarm_clock"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCWtK2ONPIXfZ8qPhA0fKmh7qnvkZz5-vM"
+          "current_key": "AIzaSyCI6Mb-v8EQf1RoEqe3LN-itI_mxm3rqDo"
         }
       ],
       "services": {

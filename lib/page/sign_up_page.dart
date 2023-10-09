@@ -11,10 +11,19 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    var emailController = TextEditingController();
-    var passwordController = TextEditingController();
+
+    @override
+      void dispose() {
+        // Clean up the controller when the widget is disposed.
+        emailController.dispose();
+        passwordController.dispose();
+        super.dispose();
+      }
+
     List images = [
       "assets/images/fb1.png",
       "assets/images/gg1.png",
@@ -86,8 +95,9 @@ class _SignUpPageState extends State<SignUpPage> {
                         )
                       ]
                     ),
-                    child: TextField(
+                    child: TextFormField(
                       controller: emailController,
+                      keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         hintText: 'Email',
                         prefixIcon: Icon(Icons.email_outlined),
@@ -127,9 +137,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         )
                       ]
                     ),
-                    child: TextField(
+                    child: TextFormField(
                       controller: passwordController,
                       obscureText: true,
+                      keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         hintText: 'Password',
                         prefixIcon: Icon(Icons.password_outlined),

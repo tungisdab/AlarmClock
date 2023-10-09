@@ -15,11 +15,21 @@ class _MusicState extends State<Music> {
   void signUp() async{
     try{
       await firebaseAuth.createUserWithEmailAndPassword(
-        email: '13342424@gmail.com',
+        email: 'set1hung@gmail.com',
         password: 'password123',
       );
     } catch(e) {
-      print(e);
+      print('kadsf $e');
+    }
+  }
+  void signIn() async{
+    try{
+      await firebaseAuth.signInWithEmailAndPassword(
+        email: 'set1hung@gmail.com',
+        password: 'password123',
+      );
+    } catch(e) {
+      print('kadsf $e');
     }
   }
   @override
@@ -30,6 +40,7 @@ class _MusicState extends State<Music> {
           child: Text('dk'),
           onPressed: () {
             signUp();
+            // signIn();
           },
         ),
       ),

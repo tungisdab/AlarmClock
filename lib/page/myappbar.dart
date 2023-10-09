@@ -1,21 +1,70 @@
+import 'package:alarm_clock/page/alarm.dart';
+import 'package:alarm_clock/page/lovedays.dart';
+import 'package:alarm_clock/page/music.dart';
+import 'package:alarm_clock/page/read_pdf.dart';
+import 'package:alarm_clock/page/sign_in_page.dart';
+import 'package:alarm_clock/page/sign_up_page.dart';
+import 'package:alarm_clock/page/todo.dart';
+import 'package:alarm_clock/page/weather.dart';
+import 'package:alarm_clock/page/welcome_page.dart';
 import 'package:flutter/material.dart';
+import 'package:alarm_clock/page/notification.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
 
-class MyAppBar{
+class MyAppBar extends StatefulWidget {
+  const MyAppBar({super.key});
+
+  @override
+  State<MyAppBar> createState() => _MyAppBarState();
+}
+
+class _MyAppBarState extends State<MyAppBar> {
+  bool check = true;
+  String textSearch = "Steal someone's heart";
   final TextEditingController _searchText = TextEditingController();
-  PreferredSize appBar() {
-    return PreferredSize(
-      preferredSize: const Size.fromHeight(150),
-      child: Container(
-        margin: const EdgeInsets.only(top: 5),
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        decoration: _boxDecoration(),
-        child: SafeArea(
-          child: Column(
+  @override
+  void initState() {
+    super.initState();
+    LocalNotification.initilize(flutterLocalNotificationsPlugin);
+    tz.initializeTimeZones();
+  }
+  final MaterialStateProperty<Icon?> thumbIcon =
+      MaterialStateProperty.resolveWith<Icon?>(
+    (Set<MaterialState> states) {
+      if (states.contains(MaterialState.selected)) {
+        return const Icon(Icons.check);
+      }
+      return const Icon(Icons.close);
+    },
+  );
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: DefaultTabController(
+        length: 6,
+        child: Scaffold(
+          appBar: _appBar(),
+          body: Column(
             children: [
-              _topBar(),
-              const SizedBox(height: 5),
-              _searchBox(),
-              _tabBar(),
+              Divider(
+                height: 1.5,
+                thickness: 1.5,
+                color: Colors.red,
+              ),
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    Alarm(),
+                    // _tabBarViewItem(Icons.task, 'Todo List'),
+                    Todo(),
+                    Music(),
+                    Weather(),
+                    Lovedays(),
+                    ReadPdf(),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -23,13 +72,31 @@ class MyAppBar{
     );
   }
 
+ PreferredSize _appBar() {
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(100),
+      child: Container(
+        decoration: _boxDecoration(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _space(),
+            _topBar(),
+            _tabBar(),
+          ],
+        ),
+      ),
+    );
+  }
+  
   BoxDecoration _boxDecoration() {
     return BoxDecoration(
       borderRadius: const BorderRadius.vertical(
-        bottom: Radius.circular(20),
+        bottom: Radius.circular(0),
+        top: Radius.circular(0),
       ),
       gradient: LinearGradient(
-        colors: [Colors.white, Colors.teal.shade300],
+        colors: [Colors.white, Colors.white],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -37,24 +104,48 @@ class MyAppBar{
   }
 
   Widget _topBar() {
-    return Row(
-      children: [
-        Image.asset(
-          'assets/logo.png',
-          scale: 50,
-        ),
-        const Expanded(
-          child: Text(
-            'EasySoftCode',
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.black, fontSize: 16),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Heartbeats',
+            style: TextStyle(
+              color: Colors.red, 
+              fontSize: 25,
+              fontWeight: FontWeight.normal,
+            ),
           ),
-        ),
-        const CircleAvatar(
-          radius: 15,
-          backgroundImage: AssetImage('assets/profile.jpeg'),
-        )
-      ],
+          Row(
+            children: [
+              CircleAvatar(
+                child: Icon(
+                  Icons.search_outlined,
+                  color: Colors.red,
+                  size: 30,
+                ),
+                backgroundColor: Colors.grey.shade300,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+              ),
+              InkWell(
+                onTap: (){
+                   Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => WelcomePage(email: 'Người đừng lặng im đến thế')),
+                  );
+                },
+                child: CircleAvatar(
+                  backgroundImage: AssetImage('assets/icon/icon.png'),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -74,48 +165,68 @@ class MyAppBar{
               _searchText.clear();
             },
           ),
-          hintText: 'Search...',
+          hintText: textSearch,
           contentPadding: const EdgeInsets.all(0),
           border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius: BorderRadius.all(Radius.circular(17)),
           ),
         ),
       ),
     );
   }
 
+  Widget _space() {
+    return SizedBox(
+      height: 30,
+    );
+  }
+
   Widget _tabBar() {
     return TabBar(
       labelPadding: const EdgeInsets.all(0),
-      labelColor: Colors.black,
-      indicatorColor: Colors.black,
-      unselectedLabelColor: Colors.teal.shade800,
+      labelColor: Colors.red,
+      indicatorColor: Colors.red,
+      unselectedLabelColor: Colors.grey.shade600,
+      indicator: BoxDecoration(  
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.red,
+            width: 2,
+            
+          ),
+        ),
+      ),
       tabs: const [
         Tab(
           iconMargin: EdgeInsets.all(0),
-          icon: Icon(Icons.home),
-          text: 'Home',
+          icon: Icon(Icons.alarm),
+          // text: 'Alarm',
         ),
         Tab(
           iconMargin: EdgeInsets.all(0),
-          icon: Icon(Icons.group),
-          text: 'Group',
+          icon: Icon(Icons.task),
         ),
         Tab(
           iconMargin: EdgeInsets.all(0),
-          icon: Icon(Icons.notifications),
-          text: 'Notifications',
+          icon: Icon(Icons.my_library_music_outlined),
         ),
         Tab(
           iconMargin: EdgeInsets.all(0),
-          icon: Icon(Icons.menu),
-          text: 'Menu',
+          icon: Icon(Icons.sunny_snowing),
+        ),
+        Tab(
+          iconMargin: EdgeInsets.all(0),
+          icon: Icon(Icons.favorite_border_outlined),
+        ),
+        Tab(
+          iconMargin: EdgeInsets.all(0),
+          icon: Icon(Icons.picture_as_pdf_outlined),
         ),
       ],
     );
   }
 
-  Widget tabBarViewItem(IconData icon, String name) {
+  Widget _tabBarViewItem(IconData icon, String name) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
