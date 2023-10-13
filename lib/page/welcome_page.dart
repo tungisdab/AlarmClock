@@ -1,6 +1,5 @@
 import 'package:alarm_clock/controller/auth_controller.dart';
 import 'package:alarm_clock/page/myappbar.dart';
-import 'package:alarm_clock/page/read_pdf.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -78,8 +77,8 @@ class _WelcomePageState extends State<WelcomePage> {
                       builder: (context) => MyAppBar(), // Thay ReadPdf() bằng trang bạn muốn điều hướng đến
                     ),
                   );
-                  print("khanh hehehehehehehhehehehehe");
                 },
+                
                 child: Container(
                   width: widthScreen * 0.5,
                   height: heightScreen * 0.08,

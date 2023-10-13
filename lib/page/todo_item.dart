@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../model/todo.dart';
 
 class TodoItem extends StatefulWidget {
-  final ToDo todo;
+  final Todo todo;
   final onToDoChanged;
   final onDeleteItem;
   TodoItem({super.key, required this.todo, required this.onToDoChanged, required this.onDeleteItem});
@@ -15,7 +15,7 @@ class _TodoItemState extends State<TodoItem> {
 
   @override
   Widget build(BuildContext context) {
-    ToDo todo = widget.todo;
+    Todo todo = widget.todo;
     final onToDoChanged = widget.onToDoChanged;
     final onDeleteItem = widget.onDeleteItem;
     return Stack(

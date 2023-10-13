@@ -1,15 +1,10 @@
 import 'package:alarm_clock/page/alarm.dart';
 import 'package:alarm_clock/page/lovedays.dart';
-import 'package:alarm_clock/page/music.dart';
 import 'package:alarm_clock/page/read_pdf.dart';
-import 'package:alarm_clock/page/sign_in_page.dart';
-import 'package:alarm_clock/page/sign_up_page.dart';
-import 'package:alarm_clock/page/todo.dart';
+import 'package:alarm_clock/page/todo_view.dart';
 import 'package:alarm_clock/page/weather.dart';
-import 'package:alarm_clock/page/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:alarm_clock/page/notification.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 
 class MyAppBar extends StatefulWidget {
@@ -42,7 +37,7 @@ class _MyAppBarState extends State<MyAppBar> {
   Widget build(BuildContext context) {
     return Container(
       child: DefaultTabController(
-        length: 6,
+        length: 5,
         child: Scaffold(
           appBar: _appBar(),
           body: Column(
@@ -57,8 +52,7 @@ class _MyAppBarState extends State<MyAppBar> {
                   children: [
                     Alarm(),
                     // _tabBarViewItem(Icons.task, 'Todo List'),
-                    Todo(),
-                    Music(),
+                    TodoView(),
                     Weather(),
                     Lovedays(),
                     ReadPdf(),
@@ -133,10 +127,11 @@ class _MyAppBarState extends State<MyAppBar> {
               ),
               InkWell(
                 onTap: (){
-                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => WelcomePage(email: 'Người đừng lặng im đến thế')),
-                  );
+                  //  Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => WelcomePage(email: 'Người đừng lặng im đến thế')),
+                  // );
+                  Navigator.pop(context);
                 },
                 child: CircleAvatar(
                   backgroundImage: AssetImage('assets/icon/icon.png'),
@@ -205,10 +200,6 @@ class _MyAppBarState extends State<MyAppBar> {
         Tab(
           iconMargin: EdgeInsets.all(0),
           icon: Icon(Icons.task),
-        ),
-        Tab(
-          iconMargin: EdgeInsets.all(0),
-          icon: Icon(Icons.my_library_music_outlined),
         ),
         Tab(
           iconMargin: EdgeInsets.all(0),

@@ -1,59 +1,80 @@
+import 'dart:convert';
 import 'package:alarm_clock/page/todo_item.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../model/todo.dart';
 
-class Todo extends StatefulWidget {
-  Todo({super.key});
+class TodoView extends StatefulWidget {
+  TodoView({super.key});
 
   @override
-  State<Todo> createState() => _TodoState();
+  State<TodoView> createState() => _TodoViewState();
 }
 
-class _TodoState extends State<Todo> with AutomaticKeepAliveClientMixin{
+class _TodoViewState extends State<TodoView> with AutomaticKeepAliveClientMixin{
   @override
   bool get wantKeepAlive => true;
-  final todosList  = ToDo.todoList();
+
   final _todoController = TextEditingController();
-  List<ToDo> _foundTodo = [];
+  List<Todo>? todoList = [];
+  List<Todo>? foundTodo = [];
+  List<dynamic>? todoListJson = [];
   
+  setupTodo() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? todoJson = prefs.getString('todos');
+    if (todoJson != null) {
+      todoListJson = jsonDecode(todoJson);
+    }
+    todoList = todoListJson!.map((e) => Todo.fromJson(e)).toList();
+    // for (var i = 0; i < todoList!.length; i++) {
+    //   print(todoList![i].toJson());
+    // }
+  } 
+
+  addTodo(String text) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int id = 0;
+    if(todoList == null){
+      id = todoList!.length + 1;
+    }
+    List item = [id, text, false];
+    item = todoList!.map((e) => e.toJson()).toList();
+    prefs.setString('todos', jsonEncode(item));
+    _todoController.clear();
+  }
+
   @override
   void initState() {
-    _foundTodo = todosList;
+    setupTodo();
+    foundTodo = todoList;
     super.initState();
   }
 
-  void _handleTodoChange(ToDo todo){
+
+  void _handleTodoChange(Todo todo){
     setState(() {
       todo.isDone = !todo.isDone!;
     });
   }
 
   void _deleteItem(int id){
-    setState(() {
-      todosList.removeWhere((item) => item.id == id);
-    });
-  }
-
-  void _addToDoItem(String toDo){
-    setState(() {
-      todosList.add(ToDo(
-        id: todosList.length + 1,
-        todoText: toDo,
-        isDone: false,
-      ));
-    });
-    _todoController.clear();
+    if(todoList !=null){
+      setState(() {
+        todoList!.removeWhere((item) => item.id == id);
+      });
+    }
   }
 
   void _runFilter(String enteredKeyword){
-    List<ToDo> results = [];
+    List<Todo>? results = [];
     if(enteredKeyword.isEmpty){
-      results = todosList;
+      results = todoList;
     } else {
-      results = todosList.where((todo) => todo.todoText!.toLowerCase().contains(enteredKeyword.toLowerCase())).toList();
+      results = todoList!.where((todo) => todo.todoText!.toLowerCase().contains(enteredKeyword.toLowerCase())).toList();
     }
     setState(() {
-      _foundTodo = results;
+      foundTodo = results;
     });
   }
 
@@ -135,7 +156,7 @@ class _TodoState extends State<Todo> with AutomaticKeepAliveClientMixin{
                     ),
                   ],
                 ),
-                for (ToDo i in _foundTodo.reversed) 
+                for (Todo i in foundTodo!.reversed) 
                   TodoItem(
                     todo: i,
                     onToDoChanged: _handleTodoChange,
@@ -193,7 +214,9 @@ class _TodoState extends State<Todo> with AutomaticKeepAliveClientMixin{
                           )
                         ),
                         onPressed: (){
-                          _addToDoItem(_todoController.text); 
+                          setState(() {
+                            addTodo(_todoController.text);
+                          });
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red,

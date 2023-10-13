@@ -4,7 +4,7 @@ import 'package:alarm_clock/page/music.dart';
 import 'package:alarm_clock/page/read_pdf.dart';
 import 'package:alarm_clock/page/sign_in_page.dart';
 import 'package:alarm_clock/page/sign_up_page.dart';
-import 'package:alarm_clock/page/todo.dart';
+import 'package:alarm_clock/page/todo_view.dart';
 import 'package:alarm_clock/page/weather.dart';
 import 'package:alarm_clock/page/welcome_page.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +59,7 @@ class _HomeState extends State<Home> {
               children: [
                 Alarm(),
                 // _tabBarViewItem(Icons.task, 'Todo List'),
-                Todo(),
+                TodoView(),
                 Music(),
                 Weather(),
                 Lovedays(),
