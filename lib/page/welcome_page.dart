@@ -3,7 +3,7 @@ import 'package:alarm_clock/page/myappbar.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatefulWidget {
-  String email;
+  final String email;
   WelcomePage({super.key, required this.email});
 
   @override

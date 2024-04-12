@@ -1,5 +1,3 @@
-import 'package:alarm_clock/page/home.dart';
-import 'package:alarm_clock/page/home1.dart';
 import 'package:alarm_clock/page/sign_in_page.dart';
 import 'package:alarm_clock/page/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
